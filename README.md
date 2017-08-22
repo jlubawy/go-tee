@@ -1,4 +1,3 @@
 # go-tee
 
-Naive implementaion of Unix tee in Go.
-
+Basic implementation of Unix tee command in Go (created so I can use it on Windows).
