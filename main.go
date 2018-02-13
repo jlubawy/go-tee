@@ -46,7 +46,7 @@ func main() {
 	// Open files
 	files, err := openFiles(args[filesStart:], flagAppend)
 	if err != nil {
-		errorf("Error: %s\n", err)
+		fatalf("Error opening file: %v\n", err)
 	}
 	defer closeFiles(files)
 
@@ -71,8 +71,8 @@ func main() {
 	}
 }
 
-// errorf prints a message to stderr and then exits with error code 1.
-func errorf(format string, values ...interface{}) {
+// fatalf prints a message to stderr and then exits with error code 1.
+func fatalf(format string, values ...interface{}) {
 	fmt.Fprintf(os.Stderr, format, values...)
 	os.Exit(1)
 }
@@ -119,7 +119,7 @@ func closeFiles(files []*os.File) {
 
 // usage prints the help message to stderr.
 func usage() {
-	errorf(`Usage: tee [OPTION]... [FILE]...
+	fatalf(`Usage: go-tee [OPTION]... [FILE]...
 Copy standard input to each FILE, and also to standard output.
 
   -a, --append   append to the given FILEs, do not overwrite
@@ -128,5 +128,5 @@ Copy standard input to each FILE, and also to standard output.
 
 // unknownOption prints a helpful message when an unknown option is encountered.
 func unknownOption(arg string) {
-	errorf("tee: unknown option -- %s\nTry 'tee --help' for more information.\n", arg)
+	fatalf("go-tee: unknown option -- %s\nTry 'go-tee --help' for more information.\n", arg)
 }
